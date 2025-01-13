@@ -3,7 +3,7 @@
 ## Title: Auto Combat Potion
 ## Author: Cilraaz
 ## Notes: Updates the Macro AutoCombatPotion to use the best combat potion available in the player's bags. Credit to Ollidiemaus, as this is simply a modification of the AutoPotion addon!
-## X-Curse-Project-ID: 
+## X-Curse-Project-ID: 1178872
 ## SavedVariables: AutoCombatPotionDB
 
 embeds.xml
