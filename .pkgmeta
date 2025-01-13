@@ -1,0 +1,10 @@
+package-as: AutoCombatPotion
+enable-nolib-creation: yes
+
+externals:
+  Libs/LibStub:
+    url: svn://svn.wowace.com/wow/libstub/mainline/trunk
+    tag: latest
+  Libs/AceLocale-3.0
+    url: svn://svn.wowace.com/wow/ace3/mainline/trunk/AceLocale-3.0
+    tag: latest
