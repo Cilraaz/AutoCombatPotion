@@ -1,0 +1,17 @@
+## Interface: 110007
+## Version: 11.0.7.00
+## Title: Auto Combat Potion
+## Author: Cilraaz
+## Notes: Updates the Macro AutoCombatPotion to use the best combat potion available in the player's bags. Credit to Ollidiemaus, as this is simply a modification of the AutoPotion addon!
+## X-Curse-Project-ID: 
+## SavedVariables: AutoCombatPotionDB
+
+embeds.xml
+Locales\Locales.xml
+
+Core/Item.lua
+Core/DB.lua
+Core/Potions.lua
+code.lua
+Bindings.lua
+FrameXML/InterfaceOptionsFrame.lua
