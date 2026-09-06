@@ -1,7 +1,7 @@
 local L = LibStub("AceLocale-3.0"):NewLocale("AutoCombatPotion", "enUS", true)
 
 -- InterfaceOptionsFrame
-L["Addon Behaviour"] = "Addon Behaviour"
+L["Addon Behavior"] = "Addon Behavior"
 L["Auto Combat Potion Settings"] = "Auto Combat Potion Settings"
 L["Choose Your Preferred Potion"] = "Choose Your Preferred Potion"
 L["Configure the behavior of the addon."] = "Configure the behavior of the addon."
@@ -15,9 +15,10 @@ L["The Settings of AutoPotion were reset due to breaking changes."] = "The Setti
 L["Useful for casters."] = "Useful for casters."
 
 -- Combat Potions
-L["Tempered Potion"] = "Tempered Potion"
-L["Potion of Unwavering Focus"] = "Potion of Unwavering Focus"
-L["Frontline Potion"] = "Frontline Potion"
+L["Potion of Recklessness"] = "Potion of Recklessness"
+L["Draught of Rampant Abandon"] = "Draught of Rampant Abandon"
+L["Light's Potential"] = "Light's Potential"
+L["Potion of Zealotry"] = "Potion of Zealotry"
 
 -- code
 L["AutoCombatPotion"] = "AutoCombatPotion"

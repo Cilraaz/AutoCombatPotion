@@ -7,7 +7,6 @@ local ICON_SIZE = 50
 local PADDING_CATERGORY = 60
 local PADDING = 30
 local PADDING_HORIZONTAL = 200
-local PADDING_PRIO_CATEGORY = 130
 local classButtons = {}
 local prioFrames = {}
 local prioTextures = {}
@@ -16,6 +15,7 @@ local firstIcon = nil
 local positionx = 0
 local currentPrioTitle = nil
 local lastStaticElement = nil
+local potionSelector = nil
 
 function acp.settingsFrame:updateConfig(option, value)
 	if acp.options[option] ~= nil then
@@ -78,7 +78,7 @@ function acp.settingsFrame:createPrioFrame(id, iconTexture, positionx, isSpell, 
 	icon.texture = texture
 
 	if firstIcon == nil then
-		icon:SetPoint("BOTTOMLEFT", 0, PADDING_PRIO_CATEGORY - PADDING * 2)
+		icon:SetPoint("TOPLEFT", potionSelector, "BOTTOMLEFT", 0, -PADDING * 2)
 		firstIcon = icon
 	else
 		icon:SetPoint("TOPLEFT", firstIcon, positionx, 0)
@@ -174,20 +174,18 @@ function acp.settingsFrame:InitializeOptions()
 	subtitle:SetText(L["Configure the behavior of the addon."])
 
 	-- behavior title
-	local behaviourTitle = self.content:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
-	behaviourTitle:SetPoint("TOPLEFT", subtitle, "BOTTOMLEFT", 0, -30)
-	behaviourTitle:SetText(L["Addon Behaviour"])
+	local behaviorTitle = self.content:CreateFontString(nil, "ARTWORK", "GameFontNormalHuge")
+	behaviorTitle:SetPoint("TOPLEFT", subtitle, "BOTTOMLEFT", 0, -30)
+	behaviorTitle:SetText(L["Addon Behavior"])
 
 	-------------  Stop Casting  -------------	
 	local stopCastButton = CreateFrame("CheckButton", nil, self.content, "InterfaceOptionsCheckButtonTemplate")
-	stopCastButton:SetPoint("TOPLEFT", behaviourTitle, 0, -PADDING)
-	---@diagnostic disable-next-line: undefined-field
+	stopCastButton:SetPoint("TOPLEFT", behaviorTitle, 0, -PADDING)
 	stopCastButton.Text:SetText(L["Include /stopcasting in the macro"])
 	stopCastButton:HookScript("OnClick", function(_, btn, down)
 		acp.settingsFrame:updateConfig("stopCast", stopCastButton:GetChecked())
 	end)
 	stopCastButton:HookScript("OnEnter", function(_, btn, down)
-		---@diagnostic disable-next-line: param-type-mismatch
 		GameTooltip:SetOwner(stopCastButton, "ANCHOR_TOPRIGHT")
 		GameTooltip:SetText(L["Useful for casters."])
 		GameTooltip:Show()
@@ -200,31 +198,36 @@ function acp.settingsFrame:InitializeOptions()
 
 
 	-------------  ITEMS  -------------
-	local temperedPotionButton = nil
-	local unwaveringFocusPotionButton = nil
-	local frontlinePotionButton = nil
 	local itemsTitle = self.content:CreateFontString("ARTWORK", nil, "GameFontNormalHuge")
 	itemsTitle:SetPoint("TOPLEFT", lastStaticElement, 0, -PADDING_CATERGORY)
 	itemsTitle:SetText(L["Items"])
 
 	-- Dropdown Menu for Preferred Combat Potion
-	local potionSelector = CreateFrame("Frame", "ACP_POTION_SELECTOR", self.content, "UIDropDownMenuTemplate")
+	potionSelector = CreateFrame("Frame", "ACP_POTION_SELECTOR", self.content, "UIDropDownMenuTemplate")
 	local updateSetting = function(self)
 		UIDropDownMenu_SetSelectedID(potionSelector, self:GetID())
 		local selected = UIDropDownMenu_GetText(potionSelector)
 		AutoCombatPotionDB.preferredPotion = selected
-		if selected == L["Tempered Potion"] then
-			AutoCombatPotionDB.temperedPotion = true
-			AutoCombatPotionDB.unwaveringFocusPotion = false
-			AutoCombatPotionDB.frontlinePotion = false
-		elseif selected == L["Potion of Unwavering Focus"] then
-			AutoCombatPotionDB.unwaveringFocusPotion = true
-			AutoCombatPotionDB.temperedPotion = false
-			AutoCombatPotionDB.frontlinePotion = false
-		elseif selected == L["Frontline Potion"] then
-			AutoCombatPotionDB.frontlinePotion = true
-			AutoCombatPotionDB.unwaveringFocusPotion = false
-			AutoCombatPotionDB.temperedPotion = false
+		if selected == L["Potion of Recklessness"] then
+			AutoCombatPotionDB.recklessPotion = true
+			AutoCombatPotionDB.rampantPotion = false
+			AutoCombatPotionDB.lightsPotentialPotion = false
+			AutoCombatPotionDB.zealotryPotion = false
+		elseif selected == L["Draught of Rampant Abandon"] then
+			AutoCombatPotionDB.rampantPotion = true
+			AutoCombatPotionDB.recklessPotion = false
+			AutoCombatPotionDB.lightsPotentialPotion = false
+			AutoCombatPotionDB.zealotryPotion = false
+		elseif selected == L["Light's Potential"] then
+			AutoCombatPotionDB.lightsPotentialPotion = true
+			AutoCombatPotionDB.recklessPotion = false
+			AutoCombatPotionDB.rampantPotion = false
+			AutoCombatPotionDB.zealotryPotion = false
+		elseif selected == L["Potion of Zealotry"] then
+			AutoCombatPotionDB.zealotryPotion = true
+			AutoCombatPotionDB.recklessPotion = false
+			AutoCombatPotionDB.rampantPotion = false
+			AutoCombatPotionDB.lightsPotentialPotion = false
 		end
 		acp.MakeMacro()
 	end
@@ -240,18 +243,23 @@ function acp.settingsFrame:InitializeOptions()
 
 	local function initDropdown(Self, Level)
 		local Info = UIDropDownMenu_CreateInfo()
-		Info.text = L["Tempered Potion"]
-		Info.value = L["Tempered Potion"]
+		Info.text = L["Potion of Recklessness"]
+		Info.value = L["Potion of Recklessness"]
 		Info.func = updateSetting
 		UIDropDownMenu_AddButton(Info, Level)
 		Info = UIDropDownMenu_CreateInfo()
-		Info.text = L["Potion of Unwavering Focus"]
-		Info.value = L["Potion of Unwavering Focus"]
+		Info.text = L["Draught of Rampant Abandon"]
+		Info.value = L["Draught of Rampant Abandon"]
 		Info.func = updateSetting
 		UIDropDownMenu_AddButton(Info, Level)
 		Info = UIDropDownMenu_CreateInfo()
-		Info.text = L["Frontline Potion"]
-		Info.value = L["Frontline Potion"]
+		Info.text = L["Light's Potential"]
+		Info.value = L["Light's Potential"]
+		Info.func = updateSetting
+		UIDropDownMenu_AddButton(Info, Level)
+		Info = UIDropDownMenu_CreateInfo()
+		Info.text = L["Potion of Zealotry"]
+		Info.value = L["Potion of Zealotry"]
 		Info.func = updateSetting
 		UIDropDownMenu_AddButton(Info, Level)
 	end
@@ -263,7 +271,7 @@ function acp.settingsFrame:InitializeOptions()
 
 	-------------  CURRENT PRIORITY  -------------
 	currentPrioTitle = self.content:CreateFontString("ARTWORK", nil, "GameFontNormalHuge")
-	currentPrioTitle:SetPoint("BOTTOMLEFT", 0, PADDING_PRIO_CATEGORY)
+	currentPrioTitle:SetPoint("TOPLEFT", potionSelector, 0, -PADDING_CATERGORY)
 	currentPrioTitle:SetText(L["Current Priority"])
 
 

@@ -3,7 +3,7 @@ local addonName, acp = ...
 
 acp.defaults = {
     stopCast = false,
-    preferredPotion = L["Tempered Potion"],
+    preferredPotion = L["Potion of Recklessness"],
     temperedPotion = true,
     unwaveringFocusPotion = false,
     frontlinePotion = false,

@@ -10,14 +10,18 @@ setmetatable(acp, {
     if k == "options" then
       t.options = {
         stopCast = AutoCombatPotionDB.stopCast or false,
-        temperedPotion = AutoCombatPotionDB.temperedPotion or false,
-        unwaveringFocusPotion = AutoCombatPotionDB.unwaveringFocusPotion or false,
-        frontlinePotion = AutoCombatPotionDB.frontlinePotion or false,
-        preferredPotion = AutoCombatPotionDB.preferredPotion or L["Tempered Potion"],
+        recklessPotion = AutoCombatPotionDB.recklessPotion or false,
+        rampantPotion = AutoCombatPotionDB.rampantPotion or false,
+        lightsPotentialPotion = AutoCombatPotionDB.lightsPotentialPotion or false,
+        zealotryPotion = AutoCombatPotionDB.zealotryPotion or false,
+        preferredPotion = AutoCombatPotionDB.preferredPotion or L["Potion of Recklessness"],
       }
-      if not t.options.temperedPotion and not t.options.unwaveringFocusPotion and not t.options.frontlinePotion then
-        t.options.temperedPotion = true
-        AutoCombatPotionDB.temperedPotion = true
+      if not t.options.recklessPotion
+        and not t.options.rampantPotion
+        and not t.options.lightsPotentialPotion
+        and not t.options.zealotryPotion then
+        t.options.recklessPotion = true
+        AutoCombatPotionDB.recklessPotion = true
       end
       return t.options
     end
