@@ -29,6 +29,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+      - name: Sync Main
+        run: |
+          git pull --ff-only origin main
+
       - name: Generate Changelog
         run: |
           echo "## Changes" > CHANGELOG.md
