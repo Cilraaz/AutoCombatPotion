@@ -69,3 +69,4 @@ jobs:
           artifacts: AutoCombatPotion-${{ env.tag }}.zip
           draft: false
           prerelease: false
+
