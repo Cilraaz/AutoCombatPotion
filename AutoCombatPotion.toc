@@ -1,5 +1,5 @@
 ## Interface: 120100
-## Version: 12.1.0.03
+## Version: 12.1.0.04
 ## Title: Auto Combat Potion
 ## Author: Cilraaz
 ## Notes: Updates the Macro AutoCombatPotion to use the best combat potion available in the player's bags. Credit to Ollidiemaus, as this is simply a modification of the AutoPotion addon!
